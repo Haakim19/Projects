@@ -5,7 +5,6 @@ using namespace std;
 
 string array[7];
 char res;
-flights_details flights;
 struct user_details 
 {
     string name;
@@ -94,14 +93,10 @@ void customer_registration(user_details user[7])
 
 }
 
-void ticket_booking(const string&  flight_code)
+void ticket_booking()
 
 {
-    ifstream in_file("flight_details", ios :: in)
-    if (in_file.is_open())
-    {
-        string 
-    }
+    cout << "hello";
 }
 
 //! THIS FUNCTION FOR TAKE ALL THE FLIGHT DETAILS AND SAVE IN TO A FILE 
@@ -272,10 +267,7 @@ int main ()
             }
         else if (res == 'Y' || 'y')
             {
-                string flight_code1;
-                cout << "Pleas enter the flight code that you want to book:";
-                cin >> flight_code1;
-                ticket_booking(flight_code1);
+                ticket_booking();
             }
         
     }
@@ -291,6 +283,7 @@ int main ()
         {
            do
            {
+            flights_details flights;
             details_save(flights);
             cout << "Do you want to add another detail(y/n)? ";
             cin >> res;
