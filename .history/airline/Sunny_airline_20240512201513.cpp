@@ -95,31 +95,24 @@ void customer_registration(user_details user[7])
 
 }
 
-void ticket_booking(const string&  flight_code1)
+void ticket_booking(const string&  flight_code)
 
 {
-    ifstream in_file("pricing.txt", ios :: in);
+    ifstream in_file("flight_details", ios :: in);
     if (in_file.is_open())
     { 
         int line_number  = 0;
-        string line1,line2;
-        int number_of_passengers,price;
         bool found = false;
         bool found2 = false;
-        while(getline (in_file, line1) )
+        while(getline (in_file, line))
         {
-           if (line1.find("FLIGHT_CODE: " + flight_code1))
+           if (line.find("FLIGHT_CODE: " + flight_code))
            {
             found = true;
-            if (line1.find("PRICE PER TICKET: ") !=string :: npos )
+            if (line.find("PRICE PER TICKET: ") !=string :: npos && line.find ("PRICE PER TICKET: ") != string :: npos)
             {
-               
-               cout << "NUMBER OF PASSENGERS: ";
-               cin >> number_of_passengers;
-               string value = line1.substr(line1.find(":") + 2);
-               price = stoi (value);
-               cout << price * number_of_passengers;
-               
+                found2 = true;
+                cout << line << endl;
             }
            }
         }
@@ -164,26 +157,13 @@ void details_save(flights_details flights)// SAVE ALL THE FLIGHT DETAILS (NOT FO
         out_file << "TIME: " << flights.time << endl;
         out_file << "PRICE PER TICKET: " << flights.price << endl;
         out_file << "TOTAL SEATS: " << flights.total_seats << endl;
-        out_file << "FLIGHT_CODE: " << flights.flight_code << endl;
+        out_file << "FLIGHT_CODE: " << flights.flight_code;
         out_file.close();
-        cout << "Sucssefully addad to 'flight_details.txt'." << endl;
+        cout << "Sucssefully addad" << endl;
     }
     else 
     {
-        cout << "Unable to open 'flight_details.txt' file." << endl;
-    }
-    ofstream out_file1 ("pricing.txt" , ios :: app);
-    if (out_file1.is_open())
-    {
-        out_file1 << "FLIGHT_CODE: " << flights.flight_code << endl;
-        out_file1 << "PRICE PER TICKET: " << flights.price << endl;
-        out_file1 << "TOTAL SEATS: " << flights.total_seats << endl;
-        out_file1.close();
-        cout << "sucssefully added to 'pricing.txt'." << endl;
-    }
-    else 
-    {
-        cout << "Unable to open 'pricing.txt' file." << endl;
+        cout << "Unable to open file." << endl;
     }
 }
 
@@ -300,12 +280,12 @@ int main ()
         flights_details_display(from , to);
         cout << "DO YOU WANT TO BOOK A TICKET (y/n): ";
         cin >> res;
-        if (res == 'N' || res == 'n')
+        if (res == 'N' || 'n')
             {
                 cout << "BACK TO MENU" << endl;
                 greeting(Number);
             }
-        else if (res == 'Y' || res == 'y')
+        else if (res == 'Y' || 'y')
             {
                 string flight_code1;
                 cout << "Pleas enter the flight code that you want to book:";

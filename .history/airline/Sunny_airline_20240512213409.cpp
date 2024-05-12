@@ -103,7 +103,7 @@ void ticket_booking(const string&  flight_code1)
     { 
         int line_number  = 0;
         string line1,line2;
-        int number_of_passengers,price;
+        int number_of_passengers;
         bool found = false;
         bool found2 = false;
         while(getline (in_file, line1) )
@@ -113,12 +113,11 @@ void ticket_booking(const string&  flight_code1)
             found = true;
             if (line1.find("PRICE PER TICKET: ") !=string :: npos )
             {
-               
+               cout << line1 << endl;
                cout << "NUMBER OF PASSENGERS: ";
                cin >> number_of_passengers;
-               string value = line1.substr(line1.find(":") + 2);
-               price = stoi (value);
-               cout << price * number_of_passengers;
+               string value = line.substr(line.find(":") + 2);
+               cout << value << endl;
                
             }
            }
