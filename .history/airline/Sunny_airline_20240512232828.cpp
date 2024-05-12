@@ -96,23 +96,6 @@ void customer_registration(user_details user[7])
      }
 
 }
-//! THIS FUNCTION FOR CALCULATE FINAL BILL 
-void final_bill (const int& a_price , const int& k1_price , const int& k2_price) // called this function inside the ticket_booking function 
-{
-    int number_of_adults, number_of_kid1 , number_of_kid2 , t_a , t_k1 , t_k2; // t_a = total adult price , t_k1 = total kids1 price , t_k2 = total kids2 price
-    cout << "NUMBER OF ADULTS: ";// passengers amount adults
-    cin >> number_of_adults;
-    cout << "NUMBER OF KIDS (2 TO 12 YEARS): ";//passengers amount kids 2 to 12 years
-    cin >> number_of_kid1;
-    cout << "NUMBER OF KIDS(UNDER 2 YEARS): ";//passengers amount kids under 2 years
-    cin >> number_of_kid2;
-    t_a = number_of_adults * a_price;
-    t_k1 = number_of_kid1 * k1_price;
-    t_k2 = number_of_kid2 * k2_price;
-
-
-    
-}
 //! THIS FUNCTION IS FOR EXTRACT THE PRICES OF TICKET THAT USER SELECTED FLIGHT
 void ticket_booking(const string&  flight_code1)
 
@@ -157,13 +140,29 @@ void ticket_booking(const string&  flight_code1)
                
             }
             
-            
+            final_bill(a_price , k1_price , k2_price);// sending the values to final_bill function
         }
-        final_bill(a_price , k1_price , k2_price);// sending the values to final_bill function
+       
         in_file.close();
     }
 }
+//! THIS FUNCTION FOR CALCULATE FINAL BILL 
+void final_bill (const int& a_price , const int& k1_price , const int& k2_price) // called this function inside the ticket_booking function 
+{
+    int number_of_adults, number_of_kid1 , number_of_kid2 , t_a , t_k1 , t_k2; // t_a = total adult price , t_k1 = total kids1 price , t_k2 = total kids2 price
+    cout << "NUMBER OF ADULTS: ";// passengers amount adults
+    cin >> number_of_adults;
+    cout << "NUMBER OF KIDS (2 TO 12 YEARS): ";//passengers amount kids 2 to 12 years
+    cin >> number_of_kid1;
+    cout << "NUMBER OF KIDS(UNDER 2 YEARS): ";//passengers amount kids under 2 years
+    cin >> number_of_kid2;
+    t_a = number_of_adults * a_price;
+    t_k1 = number_of_kid1 * k1_price;
+    t_k2 = number_of_kid2 * k2_price;
 
+
+    
+}
 //(how to replace values in file by user input)
 //! THIS FUNCTION FOR TAKE ALL THE FLIGHT DETAILS AND SAVE IN TO A FILE 
 void details_save(flights_details flights)// SAVE ALL THE FLIGHT DETAILS (NOT FOR USER)
@@ -251,7 +250,7 @@ void  flights_details_display(const string& from , const string& to)
                 found =true;
                 cout << "FROM: " << from << endl; 
                 cout << "TO: " << to << endl;
-                for (int i = 0 ; i < 7 ; i++)
+                for (int i = 0 ; i < 4 ; i++)
                 {
                     getline(in_file, line);
                     cout << "\t" << line << endl;

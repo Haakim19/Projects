@@ -157,9 +157,9 @@ void ticket_booking(const string&  flight_code1)
                
             }
             
-            
+            final_bill(a_price , k1_price , k2_price);// sending the values to final_bill function
         }
-        final_bill(a_price , k1_price , k2_price);// sending the values to final_bill function
+       
         in_file.close();
     }
 }
@@ -251,7 +251,7 @@ void  flights_details_display(const string& from , const string& to)
                 found =true;
                 cout << "FROM: " << from << endl; 
                 cout << "TO: " << to << endl;
-                for (int i = 0 ; i < 7 ; i++)
+                for (int i = 0 ; i < 4 ; i++)
                 {
                     getline(in_file, line);
                     cout << "\t" << line << endl;

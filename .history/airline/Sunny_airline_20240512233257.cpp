@@ -157,9 +157,9 @@ void ticket_booking(const string&  flight_code1)
                
             }
             
-            
+            final_bill(a_price , k1_price , k2_price);// sending the values to final_bill function
         }
-        final_bill(a_price , k1_price , k2_price);// sending the values to final_bill function
+       
         in_file.close();
     }
 }
