@@ -1,9 +1,23 @@
+
 FROM: sri lanka
-TO: japan
+TO: dubai
 DATE: 15/05/2024
-TIME: 12:00
-PRICE PER ADUULT: 25000
-PRICE PER KID(2 TO 12 YEARS): 20000
-PRICE PER KID(UNDER 2 YEARS): 17500
+DEPARTURE TIME: 12:00
+ARRIVAL TIME: 04:00
+----------FIRST CLASS----------
+PRICE PER ADUULT: 70000
+PRICE PER KID(2 TO 12 YEARS): 60000
+PRICE PER KID(UNDER 2 YEARS): 50000
+*********************************************************
+----------BUSINESS CLASS----------
+PRICE PER ADUULT: 60000
+PRICE PER KID(2 TO 12 YEARS): 50000
+PRICE PER KID(UNDER 2 YEARS): 40000
+*********************************************************
+----------ECONOMY CLASS----------
+PRICE PER ADUULT: 40000
+PRICE PER KID(2 TO 12 YEARS): 30000
+PRICE PER KID(UNDER 2 YEARS): 20000
+*********************************************************
 TOTAL SEATS: 50
 FLIGHT_CODE: F001

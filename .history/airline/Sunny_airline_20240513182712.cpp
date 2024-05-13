@@ -547,7 +547,7 @@ void details_save(flights_details flights)// SAVE ALL THE FLIGHT DETAILS (NOT FO
 //! THIS FUNCTION FOR FIND THE FLIGHT DETAILS THAT USER SEARCHING
 void  flights_details_display(const string& from , const string& to)
 {
-    ifstream in_file("flight_details.txt" ,ios::in); 
+    ifstream in_file("flight_details.txt" , ios::in); 
     if (in_file.is_open())
     {
         string line;
@@ -555,7 +555,7 @@ void  flights_details_display(const string& from , const string& to)
         while (getline(in_file, line))
         {
             
-            if (line.find("FROM: " + from)!= std::string::npos  &&  line.find("TO: " + to)!=std::string::npos) 
+            if (line.find("FROM: " + from)!= string::npos  &&  line.find("TO: " + to)!=string::npos) 
             {
                 found =true;
                 cout << "****************************************************" << endl;
@@ -567,15 +567,18 @@ void  flights_details_display(const string& from , const string& to)
                     cout << "\t" << line << endl;
                 }
                 cout << "****************************************************" << endl;
-                cout << "\n" ;
-                break;
+                cout << "\n" ;;
+                
             }
+            
+          break;
         }
+        
         if (!found)
-        {
-            cout << "Flight details not found from: " << from << " to: " << to << "." << endl;
-            greeting(Number);
-        }
+              {
+                 cout << "Flight details not found from: " << from << " to: " << to << "." << endl;
+                 greeting(Number);
+              }
         in_file.close();
     }
     

@@ -545,45 +545,42 @@ void details_save(flights_details flights)// SAVE ALL THE FLIGHT DETAILS (NOT FO
 }
 
 //! THIS FUNCTION FOR FIND THE FLIGHT DETAILS THAT USER SEARCHING
-void  flights_details_display(const string& from , const string& to)
-{
-    ifstream in_file("flight_details.txt" ,ios::in); 
-    if (in_file.is_open())
-    {
-        string line;
-        bool found = false;
-        while (getline(in_file, line))
-        {
-            
-            if (line.find("FROM: " + from)!= std::string::npos  &&  line.find("TO: " + to)!=std::string::npos) 
-            {
-                found =true;
-                cout << "****************************************************" << endl;
-                cout << "\t"<< "FROM: " << from << endl; 
-                cout << "\t" << "TO: " << to << endl;
-                for (int i = 0 ; i < 20 ; i++)
-                {
-                    getline(in_file, line);
-                    cout << "\t" << line << endl;
-                }
-                cout << "****************************************************" << endl;
-                cout << "\n" ;
-                break;
-            }
+void flights_details_display(const string& from, const string& to) {
+  ifstream file("flight_details.txt"); // Open the file
+
+  if (file.is_open()) { // Check if file opened successfully
+    string line;
+    while (getline(file, line)) { // Read line by line
+
+      // Check for "FROM" and extract origin
+      if (line.find("FROM:") != string::npos) {
+        size_t start = line.find(":") + 1;
+        string origin = line.substr(start, line.size() - start);
+
+        // Check for "TO" and extract destination
+        getline(file, line);
+        if (line.find("TO:") != string::npos) {
+          start = line.find(":") + 1;
+          string destination = line.substr(start, line.size() - start);
+
+          // Check if origin and destination match user input (consider case-insensitivity)
+          if ((origin == from || equal(origin.begin(), origin.end(), from.begin(), [](char a, char b) { return tolower(a) == tolower(b); })) &&
+              (destination == to || equal(destination.begin(), destination.end(), to.begin(), [](char a, char b) { return tolower(a) == tolower(b); }))) {
+
+            // Flight found, print details
+            cout << line << endl; // Print remaining lines from current position
+            break; // Exit loop after finding a matching flight
+          }
         }
-        if (!found)
-        {
-            cout << "Flight details not found from: " << from << " to: " << to << "." << endl;
-            greeting(Number);
-        }
-        in_file.close();
+      }
     }
-    
-    else
-    {
-        cout << "Unable to open file!" << endl;
-    }
+    file.close(); // Close the file
+  } else {
+    cerr << "Error: Could not open flight details file." << endl;
+  }
 }
+
+
 
 //! THIS FUNCTION FOR SHOWING USER DETAILS (ok)
 void check_your_details(const string& passport_number)

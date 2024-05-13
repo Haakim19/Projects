@@ -6,8 +6,13 @@ using namespace std;
 string array[7];
 char res;
 string line;
-int Number;
-
+//?this veriables used inside three ticket booking functions
+    int adults = 0 ;
+    int a_price = 0 ;
+    int kids1 = 0 ;
+    int k1_price = 0 ;
+    int kids2 = 0 ;
+    int k2_price = 0;
 struct user_details 
 {
     string name;
@@ -127,198 +132,14 @@ void final_bill (int& a_price , int& k1_price , int& k2_price) // called this fu
     
 }
 //! THIS FUNCTION IS FOR EXTRACT THE PRICES OF TICKET THAT USER SELECTED FLIGHT (ok , need to add class)
-
-void ticket_booking_first(const string&  flight_code1)
-
-{
-    ifstream in_file("first_class.txt", ios :: in);
-    if (in_file.is_open())
-    { 
-         //?this veriables used inside three ticket booking functions
-        int adults = 0 ;
-        int a_price = 0 ;
-        int kids1 = 0 ;
-        int k1_price = 0 ;                       //? a_price = adult ticket price , kids1 = kids 2 to 12 , k1_price = kids1 ticket price
-        int kids2 = 0 ;                         //? kids2 = kids under 2 years , k2_price =  kids2 ticket price
-        int k2_price = 0;                                        
-        bool found = false;                                         
-        bool found_price1 = false;
-        bool found_price2 = false;
-        bool found_price3 = false;
-       
-
-       while(getline (in_file, line) )
-        {
-    
-
-           if (line.find("FLIGHT_CODE: " + flight_code1) != string ::npos)
-           {
-            found = true;
-           }
-           if (found)
-           {
-            if (line.find("PRICE PER ADUULT: ") !=string :: npos )//extracting the values of price per adult
-            {
-               found_price1 = true;
-               string value1 = line.substr(line.find(":") + 2);
-               a_price = stoi (value1);
-               
-            }
-             else if (line.find("PRICE PER KID(2 TO 12 YEARS): ") !=string :: npos )//extracting the values of price of kids from 2 to 12 years
-            {
-               found_price2 = true;
-               string value2 = line.substr(line.find(":") + 2);
-               k1_price = stoi (value2);
-            }
-             else if (line.find("PRICE PER KID(UNDER 2 YEARS): ") !=string :: npos )//extracting the values of price of kids under 2 years
-            {
-               found_price3 = true;
-               string value3 = line.substr(line.find(":") + 2);
-               k2_price = stoi (value3);
-               
-            }
-           }
-           
-        }
-        if (found)     
-       
-       {
-        final_bill(a_price , k1_price , k2_price);// sending the values to final_bill function
-       }
-
-        // Handle cases where some prices are not found
-        else if (!found)
-        {
-            cout << "Flight details not found for code: " << flight_code1 << endl;
-        } 
-        else if (a_price == 0) 
-        {
-            cout << "Adults price information for flight code: " << flight_code1 << endl;
-            // price for Adults are missing 
-        }  
-        else if (k1_price == 0 )
-        {
-             cout << "Kids (2 to 12 years) price information for flight code: " << flight_code1 << endl;
-             //price for Kids (2 to 12 years) are missing
-        }
-        else if (k2_price == 0)
-        {
-             cout << "Kids (under 2 years) price information for flight code: " << flight_code1 << endl;
-             //price for Kids (under 2 years) are missing
-        }
-
-        
-       
-        
-    }
-    else 
-    {
-        cout << "Unable to open first_class.txt file" << endl;
-    }
-}
-void ticket_booking_business(const string&  flight_code1)
-
-{
-    ifstream in_file("business_class.txt", ios :: in);
-    if (in_file.is_open())
-    { 
-        
-         //?this veriables used inside three ticket booking functions
-        int adults = 0 ;
-        int a_price = 0 ;
-        int kids1 = 0 ;
-        int k1_price = 0 ;
-        int kids2 = 0 ;
-        int k2_price = 0;
-            
-         
-         //? a_price = adult ticket price , kids1 = kids 2 to 12 , k1_price = kids1 ticket price  
-        bool found = false;
-        bool found2 = false ;                                        //? kids2 = kids under 2 years , k2_price =  kids2 ticket price
-        bool found_price1 = false;
-        bool found_price2 = false;
-        bool found_price3 = false;
-       
-
-       while(getline (in_file, line) )
-        {
-    
-
-           if (line.find("FLIGHT_CODE: " + flight_code1) != string ::npos)
-           {
-            found = true;
-           }
-           if (found)
-           {
-            if (line.find("PRICE PER ADUULT: ") !=string :: npos )//extracting the values of price per adult
-            {
-               found_price1 = true;
-               string value1 = line.substr(line.find(":") + 2);
-               a_price = stoi (value1);
-               
-            }
-             else if (line.find("PRICE PER KID(2 TO 12 YEARS): ") !=string :: npos )//extracting the values of price of kids from 2 to 12 years
-            {
-               found_price2 = true;
-               string value2 = line.substr(line.find(":") + 2);
-               k1_price = stoi (value2);
-            }
-             else if (line.find("PRICE PER KID(UNDER 2 YEARS): ") !=string :: npos )//extracting the values of price of kids under 2 years
-            {
-               found_price3 = true;
-               string value3 = line.substr(line.find(":") + 2);
-               k2_price = stoi (value3);
-               
-            }
-           }
-           
-        }
-        if (found)     
-       
-       {
-        final_bill(a_price , k1_price , k2_price);// sending the values to final_bill function
-       }
-       
-        // Handle cases where some prices are not found
-        else if (!found)
-        {
-            cout << "Flight details not found for code: " << flight_code1 << endl;
-        } 
-        else if (a_price == 0) 
-        {
-            cout << "Adults price information for flight code: " << flight_code1 << endl;
-            // price for Adults are missing 
-        }  
-        else if (k1_price == 0 )
-        {
-             cout << "Kids (2 to 12 years) price information for flight code: " << flight_code1 << endl;
-             //price for Kids (2 to 12 years) are missing
-        }
-        else if (k2_price == 0)
-        {
-             cout << "Kids (under 2 years) price information for flight code: " << flight_code1 << endl;
-             //price for Kids (under 2 years) are missing
-        }
-        
-    }
-    else 
-    {
-        cout << "Unable to open business_class.txt file" << endl;
-    }
-}
 void ticket_booking_economy(const string&  flight_code1)
 
 {
-    ifstream in_file("economy_class.txt", ios :: in);
+    ifstream in_file("pricing.txt", ios :: in);
     if (in_file.is_open())
     { 
-         //?this veriables used inside three ticket booking functions
-        int adults = 0 ;
-        int a_price = 0 ;
-        int kids1 = 0 ;
-        int k1_price = 0 ;
-        int kids2 = 0 ;
-        int k2_price = 0; //? a_price = adult ticket price , kids1 = kids 2 to 12 , k1_price = kids1 ticket price  
+        
+         //? a_price = adult ticket price , kids1 = kids 2 to 12 , k1_price = kids1 ticket price  
         bool found = false;                                         //? kids2 = kids under 2 years , k2_price =  kids2 ticket price
         bool found_price1 = false;
         bool found_price2 = false;
@@ -327,14 +148,11 @@ void ticket_booking_economy(const string&  flight_code1)
 
         while(getline (in_file, line) )
         {
-    
-
-           if (line.find("FLIGHT_CODE: " + flight_code1) != string ::npos)
+           if (line.find("FLIGHT_CODE: " + flight_code1) != string ::npos && line.find("----------ECONOMY CLASS----------") != string::npos)
            {
             found = true;
            }
-           if (found)
-           {
+           if (found){
             if (line.find("PRICE PER ADUULT: ") !=string :: npos )//extracting the values of price per adult
             {
                found_price1 = true;
@@ -358,14 +176,8 @@ void ticket_booking_economy(const string&  flight_code1)
            }
            
         }
-        if (found)     
-       
-        {
-            final_bill(a_price , k1_price , k2_price);// sending the values to final_bill function
-        }
-       
         // Handle cases where some prices are not found
-        else if (!found)
+        if (!found) 
         {
             cout << "Flight details not found for code: " << flight_code1 << endl;
         } 
@@ -384,12 +196,162 @@ void ticket_booking_economy(const string&  flight_code1)
              cout << "Kids (under 2 years) price information for flight code: " << flight_code1 << endl;
              //price for Kids (under 2 years) are missing
         }
+            
+       final_bill(a_price , k1_price , k2_price);// sending the values to final_bill function
        
         
     }
     else 
     {
-        cout << "Unable to open economy_class.txt file" << endl;
+        cout << "Unable to open pricing.txt file" << endl;
+    }
+}
+void ticket_booking_first(const string&  flight_code1)
+
+{
+    ifstream in_file("pricing.txt", ios :: in);
+    if (in_file.is_open())
+    { 
+        
+         //? a_price = adult ticket price , kids1 = kids 2 to 12 , k1_price = kids1 ticket price  
+        bool found = false;                                         //? kids2 = kids under 2 years , k2_price =  kids2 ticket price
+        bool found_price1 = false;
+        bool found_price2 = false;
+        bool found_price3 = false;
+       
+
+        while(getline (in_file, line) )
+        {
+           if (line.find("FLIGHT_CODE: " + flight_code1) != string ::npos && line.find("----------FIRST CLASS----------") != string::npos)
+           {
+            found = true;
+           }
+           if (found){
+            if (line.find("PRICE PER ADUULT: ") !=string :: npos )//extracting the values of price per adult
+            {
+               found_price1 = true;
+               string value1 = line.substr(line.find(":") + 2);
+               a_price = stoi (value1);
+               
+            }
+             else if (line.find("PRICE PER KID(2 TO 12 YEARS): ") !=string :: npos )//extracting the values of price of kids from 2 to 12 years
+            {
+               found_price2 = true;
+               string value2 = line.substr(line.find(":") + 2);
+               k1_price = stoi (value2);
+            }
+             else if (line.find("PRICE PER KID(UNDER 2 YEARS): ") !=string :: npos )//extracting the values of price of kids under 2 years
+            {
+               found_price3 = true;
+               string value3 = line.substr(line.find(":") + 2);
+               k2_price = stoi (value3);
+               
+            }
+           }
+           
+        }
+        // Handle cases where some prices are not found
+        if (!found) 
+        {
+            cout << "Flight details not found for code: " << flight_code1 << endl;
+        } 
+        else if (a_price == 0) 
+        {
+            cout << "Adults price information for flight code: " << flight_code1 << endl;
+            // price for Adults are missing 
+        }  
+        else if (k1_price == 0 )
+        {
+             cout << "Kids (2 to 12 years) price information for flight code: " << flight_code1 << endl;
+             //price for Kids (2 to 12 years) are missing
+        }
+        else if (k2_price == 0)
+        {
+             cout << "Kids (under 2 years) price information for flight code: " << flight_code1 << endl;
+             //price for Kids (under 2 years) are missing
+        }
+            
+       final_bill(a_price , k1_price , k2_price);// sending the values to final_bill function
+       
+        
+    }
+    else 
+    {
+        cout << "Unable to open pricing.txt file" << endl;
+    }
+}
+void ticket_booking_business(const string&  flight_code1)
+
+{
+    ifstream in_file("pricing.txt", ios :: in);
+    if (in_file.is_open())
+    { 
+        
+         //? a_price = adult ticket price , kids1 = kids 2 to 12 , k1_price = kids1 ticket price  
+        bool found = false;                                         //? kids2 = kids under 2 years , k2_price =  kids2 ticket price
+        bool found_price1 = false;
+        bool found_price2 = false;
+        bool found_price3 = false;
+       
+
+        while(getline (in_file, line) )
+        {
+           if (line.find("FLIGHT_CODE: " + flight_code1) != string ::npos && line.find("----------ECONOMY CLASS----------") != string::npos)
+           {
+            found = true;
+           }
+           if (found){
+            if (line.find("PRICE PER ADUULT: ") !=string :: npos )//extracting the values of price per adult
+            {
+               found_price1 = true;
+               string value1 = line.substr(line.find(":") + 2);
+               a_price = stoi (value1);
+               
+            }
+             else if (line.find("PRICE PER KID(2 TO 12 YEARS): ") !=string :: npos )//extracting the values of price of kids from 2 to 12 years
+            {
+               found_price2 = true;
+               string value2 = line.substr(line.find(":") + 2);
+               k1_price = stoi (value2);
+            }
+             else if (line.find("PRICE PER KID(UNDER 2 YEARS): ") !=string :: npos )//extracting the values of price of kids under 2 years
+            {
+               found_price3 = true;
+               string value3 = line.substr(line.find(":") + 2);
+               k2_price = stoi (value3);
+               
+            }
+           }
+           
+        }
+        // Handle cases where some prices are not found
+        if (!found) 
+        {
+            cout << "Flight details not found for code: " << flight_code1 << endl;
+        } 
+        else if (a_price == 0) 
+        {
+            cout << "Adults price information for flight code: " << flight_code1 << endl;
+            // price for Adults are missing 
+        }  
+        else if (k1_price == 0 )
+        {
+             cout << "Kids (2 to 12 years) price information for flight code: " << flight_code1 << endl;
+             //price for Kids (2 to 12 years) are missing
+        }
+        else if (k2_price == 0)
+        {
+             cout << "Kids (under 2 years) price information for flight code: " << flight_code1 << endl;
+             //price for Kids (under 2 years) are missing
+        }
+            
+       final_bill(a_price , k1_price , k2_price);// sending the values to final_bill function
+       
+        
+    }
+    else 
+    {
+        cout << "Unable to open pricing.txt file" << endl;
     }
 }
 //(how to replace values in file by user input)
@@ -459,7 +421,7 @@ void details_save(flights_details flights)// SAVE ALL THE FLIGHT DETAILS (NOT FO
     if (out_file.is_open())
     {
         
-        out_file << "\n" <<"FROM: " << flights.from << endl;
+        out_file <<  "FROM: " << flights.from << endl;
         out_file << "TO: " << flights.to << endl;
         out_file << "DATE: " << flights.date << endl;
         out_file << "DEPARTURE TIME: " << flights.time1 << endl;
@@ -488,74 +450,44 @@ void details_save(flights_details flights)// SAVE ALL THE FLIGHT DETAILS (NOT FO
     {
         cout << "Unable to open 'flight_details.txt' file." << endl;
     }
-    ofstream out_file1 ("first_class.txt" , ios :: app);
+    ofstream out_file1 ("pricing.txt" , ios :: app);
     if (out_file1.is_open())
     {
         
-        out_file1 << "\n" << "FLIGHT_CODE: " << flights.flight_code << endl;
+        out_file1 << "FLIGHT_CODE: " << flights.flight_code << endl;
         out_file1 << "----------FIRST CLASS----------" << endl;
         out_file1 << "PRICE PER ADUULT: " << flights.adult << endl;
         out_file1 << "PRICE PER KID(2 TO 12 YEARS): " << flights.kids1 << endl;
         out_file1 << "PRICE PER KID(UNDER 2 YEARS): " << flights.kids2 << endl;
-       
+        out_file1 << "----------BUSINESS CLASS----------" << endl;
+        out_file1 << "PRICE PER ADUULT: " << flights.adult1 << endl;
+        out_file1 << "PRICE PER KID(2 TO 12 YEARS): " << flights.kids11 << endl;
+        out_file1 << "PRICE PER KID(UNDER 2 YEARS): " << flights.kids21 << endl;
+        out_file1 << "----------ECONOMY CLASS----------" << endl;
+        out_file1 << "PRICE PER ADUULT: " << flights.adult2 << endl;
+        out_file1 << "PRICE PER KID(2 TO 12 YEARS): " << flights.kids12 << endl;
+        out_file1<< "PRICE PER KID(UNDER 2 YEARS): " << flights.kids22 << endl;
+        out_file1 << "TOTAL SEATS: " << flights.total_seats << endl;
         out_file1.close();
-        cout << "sucssefully added to 'first_class.txt'." << endl;
+        cout << "sucssefully added to 'pricing.txt'." << endl;
     }
     else 
     {
-        cout << "Unable to open 'first_class.txt' file." << endl;
+        cout << "Unable to open 'pricing.txt' file." << endl;
     }
-    ofstream out_file2 ("business_class.txt" , ios :: app);
-    if (out_file2.is_open())
-    {
-        
-        out_file2 << "\n" << "FLIGHT_CODE: " << flights.flight_code << endl;
-        out_file2 << "----------BUSINESS CLASS----------" << endl;
-        out_file2 << "PRICE PER ADUULT: " << flights.adult1 << endl;
-        out_file2 << "PRICE PER KID(2 TO 12 YEARS): " << flights.kids11 << endl;
-        out_file2 << "PRICE PER KID(UNDER 2 YEARS): " << flights.kids21 << endl;
-       
-        out_file2.close();
-        cout << "sucssefully added to 'business_class.txt'." << endl;
-    }
-    else 
-    {
-        cout << "Unable to open 'business_class.txt' file." << endl;
-    }
-    
-    ofstream out_file3 ("economy_class.txt" , ios :: app);
-    if (out_file3.is_open())
-    {
-        
-        out_file3 << "\n" << "FLIGHT_CODE: " << flights.flight_code << endl;
-        out_file3 << "----------ECONOMY CLASS----------" << endl;
-        out_file3 << "PRICE PER ADUULT: " << flights.adult2 << endl;
-        out_file3 << "PRICE PER KID(2 TO 12 YEARS): " << flights.kids12 << endl;
-        out_file3<< "PRICE PER KID(UNDER 2 YEARS): " << flights.kids22 << endl;
-       
-        out_file3.close();
-        cout << "sucssefully added to 'economy_class.txt'." << endl;
-    }
-    else 
-    {
-        cout << "Unable to open 'economy_class.txt' file." << endl;
-    }
-        
-        
 }
 
 //! THIS FUNCTION FOR FIND THE FLIGHT DETAILS THAT USER SEARCHING
 void  flights_details_display(const string& from , const string& to)
 {
-    ifstream in_file("flight_details.txt" ,ios::in); 
+    ifstream in_file("flight_details.txt" , ios::in); 
     if (in_file.is_open())
     {
-        string line;
+        
         bool found = false;
         while (getline(in_file, line))
         {
-            
-            if (line.find("FROM: " + from)!= std::string::npos  &&  line.find("TO: " + to)!=std::string::npos) 
+            if (line.find("FROM: " + from)  && line.find("TO: " + to)) 
             {
                 found =true;
                 cout << "****************************************************" << endl;
@@ -567,18 +499,16 @@ void  flights_details_display(const string& from , const string& to)
                     cout << "\t" << line << endl;
                 }
                 cout << "****************************************************" << endl;
-                cout << "\n" ;
-                break;
+                cout << "\n" ;;
+                
             }
         }
         if (!found)
         {
-            cout << "Flight details not found from: " << from << " to: " << to << "." << endl;
-            greeting(Number);
+            cout << "Flight details not found! from: " << from << " to: " << to << "." << endl;
         }
         in_file.close();
     }
-    
     else
     {
         cout << "Unable to open file!" << endl;
@@ -670,34 +600,30 @@ int main ()
             }
         else if (res == 'Y' || res == 'y')
             {
-                int res1 = 0;
                 string flight_code1;
-                cout << "PLEASE ENTER THE FLIGHT CODE:";
+                cout << "Pleas enter the flight code that you want to book:";
                 cin >> flight_code1;
-                cout << "------ PLEASE ENTER WHAT CLASS YOU WANT TO BOOK ----" << endl;
+                cout << "------ PLEASE ENTER WHAT CLASS YOU WANT TO BOOK ----";
                 cout << "1 - FIRST CLASS." << endl;
                 cout << "2 - BUSINESS CLASS" << endl;
                 cout << "3 - ECONOMY CLASS" << endl;
-                cout << "YOUR CHOICE:";
-                cin >> res1 ;
-                if (res1 == 1)
+                cout << "YOUR CHOICE: ";
+                cin >> res ;
+                switch (res)
                 {
+                case 1:
                     ticket_booking_first(flight_code1);
-                }
-                else if (res1 == 2)
-                {
+                    break;
+                case 2:
                     ticket_booking_business(flight_code1);
-                }
-                else if (res1 == 3)
-                {
+                    break;
+                case 3 :
                     ticket_booking_economy(flight_code1);
-                }
-                
-                else 
-                {
-                    cout  << "invalid";
-                    greeting(Number); 
-                }
+                    break;
+                default:
+                    cout << "INVALID ENTRY!" << endl;
+                    greeting(Number);
+                    break;
                 
             }
         
@@ -734,6 +660,6 @@ int main ()
       
     }
   }
- return 0;
+return 0;
 
 }
