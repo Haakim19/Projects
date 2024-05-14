@@ -565,7 +565,7 @@ void  flights_details_display(const string& from , const string& to)
                     cout << "\t" << line << endl;
                 }
                 cout << "\n" ;;
-                break;
+
             }
         }
         if (!found)

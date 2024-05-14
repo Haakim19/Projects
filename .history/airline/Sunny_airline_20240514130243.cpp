@@ -559,13 +559,13 @@ void  flights_details_display(const string& from , const string& to)
                 found =true;
                 cout << "FROM: " << from << endl; 
                 cout << "TO: " << to << endl;
-                for (int i = 0 ; i < 21 ; i++)
+                for (int i = 0 ; i < 7 ; i++)
                 {
                     getline(in_file, line);
                     cout << "\t" << line << endl;
                 }
                 cout << "\n" ;;
-                break;
+
             }
         }
         if (!found)
