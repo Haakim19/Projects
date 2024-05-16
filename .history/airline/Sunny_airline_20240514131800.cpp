@@ -117,28 +117,30 @@ void final_bill (int& a_price , int& k1_price , int& k2_price) // called this fu
     cin >> number_of_kid1;
     cout << "NUMBER OF KIDS(UNDER 2 YEARS): ";//passengers amount kids under 2 years
     cin >> number_of_kid2;
-    t_a = number_of_adults * a_price;//total price of adults
-    t_k1 = number_of_kid1 * k1_price;//total price of kids 2 to 12
-    t_k2 = number_of_kid2 * k2_price;//total price of kids under 2 years
-    
+    t_a = number_of_adults * a_price;
+    t_k1 = number_of_kid1 * k1_price;
+    t_k2 = number_of_kid2 * k2_price;
+    cout << t_a << endl;
+    cout << t_k1 << endl;
+    cout << t_k2 << endl;
+
     
 }
+//! THIS FUNCTION IS FOR EXTRACT THE PRICES OF TICKET THAT USER SELECTED FLIGHT (ok , need to add class)
 
-//! THIS FUNCTION IS FOR EXTRACT THE PRICES OF TICKET THAT USER SELECTED FLIGHT 
 void ticket_booking_first(const string&  flight_code1)
 
 {
     ifstream in_file("first_class.txt", ios :: in);
     if (in_file.is_open())
     { 
-         
-        int adults = 0 ;                      //? a_price = adult ticket price , kids1 = kids 2 to 12 , k1_price = kids1 ticket price
-        int a_price = 0 ;                     //? kids2 = kids under 2 years , k2_price =  kids2 ticket price
+         //?this veriables used inside three ticket booking functions
+        int adults = 0 ;
+        int a_price = 0 ;
         int kids1 = 0 ;
-        int k1_price = 0 ;                       
-        int kids2 = 0 ;                         
-        int k2_price = 0; 
-
+        int k1_price = 0 ;                       //? a_price = adult ticket price , kids1 = kids 2 to 12 , k1_price = kids1 ticket price
+        int kids2 = 0 ;                         //? kids2 = kids under 2 years , k2_price =  kids2 ticket price
+        int k2_price = 0;                                        
         bool found = false;                                         
         bool found_price1 = false;
         bool found_price2 = false;
@@ -221,16 +223,18 @@ void ticket_booking_business(const string&  flight_code1)
     if (in_file.is_open())
     { 
         
-        
-        int adults = 0 ;                //? a_price = adult ticket price , kids1 = kids 2 to 12 , k1_price = kids1 ticket price
-        int a_price = 0 ;               //? kids2 = kids under 2 years , k2_price =  kids2 ticket price
-        int kids1 = 0 ;  
+         //?this veriables used inside three ticket booking functions
+        int adults = 0 ;
+        int a_price = 0 ;
+        int kids1 = 0 ;
         int k1_price = 0 ;
         int kids2 = 0 ;
         int k2_price = 0;
-          
+            
+         
+         //? a_price = adult ticket price , kids1 = kids 2 to 12 , k1_price = kids1 ticket price  
         bool found = false;
-        bool found2 = false ;                                        
+        bool found2 = false ;                                        //? kids2 = kids under 2 years , k2_price =  kids2 ticket price
         bool found_price1 = false;
         bool found_price2 = false;
         bool found_price3 = false;
@@ -308,15 +312,14 @@ void ticket_booking_economy(const string&  flight_code1)
     ifstream in_file("economy_class.txt", ios :: in);
     if (in_file.is_open())
     { 
-       
-        int adults = 0 ;              //? a_price = adult ticket price , kids1 = kids 2 to 12 , k1_price = kids1 ticket price 
-        int a_price = 0 ;              //? kids2 = kids under 2 years , k2_price =  kids2 ticket price
+         //?this veriables used inside three ticket booking functions
+        int adults = 0 ;
+        int a_price = 0 ;
         int kids1 = 0 ;
         int k1_price = 0 ;
         int kids2 = 0 ;
-        int k2_price = 0;
-
-        bool found = false;                                         
+        int k2_price = 0; //? a_price = adult ticket price , kids1 = kids 2 to 12 , k1_price = kids1 ticket price  
+        bool found = false;                                         //? kids2 = kids under 2 years , k2_price =  kids2 ticket price
         bool found_price1 = false;
         bool found_price2 = false;
         bool found_price3 = false;
@@ -358,7 +361,7 @@ void ticket_booking_economy(const string&  flight_code1)
         if (found)     
        
         {
-            final_bill(a_price , k1_price , k2_price); // sending the values to final_bill function
+            final_bill(a_price , k1_price , k2_price);// sending the values to final_bill function
         }
        
         // Handle cases where some prices are not found
@@ -646,7 +649,6 @@ int main ()
     {
         string from;
         string to;
-        char res1;
         cin.ignore(); //clear input buffer
         cout << "STARTING POINT: ";
         getline(cin, from);
@@ -654,16 +656,16 @@ int main ()
         getline(cin, to);
         flights_details_display(from , to);
         cout << "DO YOU WANT TO BOOK A TICKET (y/n): ";
-        cin >> res1;
+        cin >> res;
         cin.ignore();// clear input buffer
-        if (res1 == 'N' || res1 == 'n')
+        if (res == 'N' || res == 'n')
             {
                 cout << "BACK TO MENU" << endl;
                 greeting(Number);
             }
-        else if (res1 == 'Y' || res1 == 'y')
+        else if (res == 'Y' || res == 'y')
             {
-                int res2 = 0;
+                int res1 = 0;
                 string flight_code1;
                 cout << "PLEASE ENTER THE FLIGHT CODE:";
                 cin >> flight_code1;
@@ -672,16 +674,16 @@ int main ()
                 cout << "2 - BUSINESS CLASS" << endl;
                 cout << "3 - ECONOMY CLASS" << endl;
                 cout << "YOUR CHOICE:";
-                cin >> res2 ;
-                if (res2 == 1)
+                cin >> res1 ;
+                if (res1 == 1)
                 {
                     ticket_booking_first(flight_code1);
                 }
-                else if (res2 == 2)
+                else if (res1 == 2)
                 {
                     ticket_booking_business(flight_code1);
                 }
-                else if (res2 == 3)
+                else if (res1 == 3)
                 {
                     ticket_booking_economy(flight_code1);
                 }
